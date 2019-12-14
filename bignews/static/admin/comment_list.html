@@ -29,34 +29,14 @@
             <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
-        <tbody id="commentBox">
-          <tr>
-            <td>小周</td>
-            <td>这是一条测试评论，欢迎光临</td>
-            <td>《世界，你好》</td>
-            <td>2017-07-04 12:00:00</td>
-            <td>已批准</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-warning btn-xs">拒绝</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+        <tbody id="commentBox"> 
+          <!-- 评论模板放置处 -->
         </tbody>
       </table>
 
       <div class="row text-center">
-        <ul class="pagination pagination-sm">
-          <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-          <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-          <li class="page-item"><a href="#" class="page-link">2</a></li>
-          <li class="page-item"><a href="#" class="page-link">3</a></li>
-          <li class="page-item"><a href="#" class="page-link">4</a></li>
-          <li class="page-item"><a href="#" class="page-link">5</a></li>
-          <li class="page-item"><a href="#" class="page-link">6</a></li>
-          <li class="page-item"><a href="#" class="page-link">7</a></li>
-          <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-          <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+        <ul class="pagination pagination-sm" id="pageTpl">
+
         </ul>
       </div>
 
@@ -72,7 +52,36 @@
       window.parent.setMenu(0, 0);
     })
   </script>
+  <!-- 导入模板引擎 -->
+<script src="/admin/js/art-template/template-web.js"></script>
+<link rel="stylesheet" href="js/nprogress/nprogress.css">
+  <script src="js/nprogress/nprogress.js"></script>
+  <script src="js/public.js"></script>
+  
+<script type="text/html" id="commentlistTpl">
+{{each data}}
+<tr class="{{$value.state=='待审核'?'danger':''}}">
+    <td>{{$value.author}}</td>
+    <td>{{$value.content}}</td>
+    <td>{{$value.title}}</td>
+    <td>{{$value.state}}</td>
+    <td>{{$value.date}} {{$value.time}}</td>
+    <td class="text-center">
+        {{if $value.state=='待审核'}} 
+        <a href="javascript:;" class="btn btn-info btn-xs" data-id="{{$value.id}}">批准</a>
+        {{else if $value.state=='已通过'}}
+      <a href="javascript:;" class="btn btn-warning btn-xs" data-id="{{$value.id}}">拒绝</a>
+      {{/if}}
+      <a href="javascript:;" class="btn btn-danger btn-xs" data-id="{{$value.id}}">删除</a>
+    </td>
+  </tr>
 
+{{/each}}
+</script>
+
+
+
+<script src="/admin/js/comment_list.js"></script>
   <!-- 业务逻辑代码 -->
   <script>
   </script>

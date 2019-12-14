@@ -33,3 +33,11 @@ $('#search_icon').on('click',function(){
   // 把frame 改为文章列表页 搜索数据再传递过去
   $('#main_frame').prop('src','/admin/article_list.html?key='+$('#keyInput').val())
 })
+// 上方搜索框添加键盘按下事件 
+$('#keyInput').on('keydown',function(e){
+  // 如果keyCode是13说明按下了回车 
+  if(e.keyCode==13){
+  // 把frame 改为文章列表页 搜索数据再传递过去
+  $('#main_frame').prop('src','/admin/article_list.html?key='+$('#keyInput').val())
+  }
+})
